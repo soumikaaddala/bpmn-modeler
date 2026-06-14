@@ -1,0 +1,19 @@
+{
+  "name": "my-bpmn-playground",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "@bpmn-io/properties-panel": "^3.44.1",
+    "bpmn-js-properties-panel": "^5.58.0",
+    "camunda-bpmn-js": "^5.28.0"
+  }
+}
