@@ -6,87 +6,146 @@
 
   <style>
     html,
-body,
-#main-container {
-  margin: 0;
-  height: 100%;
-}
+    body,
+    #main-container {
+      margin: 0;
+      height: 100%;
+    }
 
-#main-container {
+    #main-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #editor-container {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+
+    #canvas-container {
+      flex: 1;
+      position: relative;
+    }
+
+    #canvas {
+      height: 100%;
+    }
+
+    /* Properties Panel */
+
+    #properties {
+      width: 320px;
+      border-left: 1px solid #ccc;
+    }
+
+    /* Undo / Redo Toolbar */
+#toolbar {
+  position: absolute;
+
+  left: 12px;
+  top: 410px;
+
+  z-index: 1000;
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;   /* horizontal */
+  gap: 4px;
 }
 
-#editor-container {
-  flex: 1;
-  display: flex;
-  min-height: 0;
+   #toolbar button {
+  width: 36px;
+  height: 32px;
+
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+
+  font-size: 18px;
 }
 
-#bottom-panel {
-  height: 220px;
-  min-height: 220px;
+    #toolbar button:hover {
+      background: #f5f5f5;
+    }
+
+    /* Bottom Panel */
+
+    #bottom-panel {
+      height: 260px;      /* Increased from 170px to push the line upward */
+  min-height: 260px;  /* Keeps it locked at this new larger size */
   border-top: 1px solid #ccc;
   overflow: hidden;
-}
-#canvas {
-  flex: 1;
-}
+    }
 
-#properties {
-  width: 320px;
-  border-left: 1px solid #ccc;
-}
+    #bottom-tabs {
+      padding: 5px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ccc;
+    }
 
-#bottom-tabs {
-  padding: 5px;
-  background: #f5f5f5;
-  border-bottom: 1px solid #ccc;
-}
+    #bottom-tabs button {
+      margin-right: 10px;
+    }
 
-#bottom-tabs button {
-  margin-right: 10px;
-}
+    #problems-panel,
+    #output-panel {
+      height: calc(100% - 40px);
+      overflow: auto;
+      background: white;
+    }
 
-#problems-panel{
-    background: white;
-}
-#output-panel {
-  height: calc(100% - 40px);
-  overflow: auto;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
+    th,
+    td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
   </style>
 </head>
 
+<body>
 
-  <body>
   <div id="main-container">
 
     <div id="editor-container">
-      <div id="canvas"></div>
+
+      <div id="canvas-container">
+
+        <!-- Undo / Redo -->
+        <div id="toolbar">
+          <button id="undo-btn">↶</button>
+          <button id="redo-btn">↷</button>
+        </div>
+
+        <div id="canvas"></div>
+
+      </div>
+
       <div id="properties"></div>
+
     </div>
+
+    <!-- Bottom Panel -->
 
     <div id="bottom-panel">
 
       <div id="bottom-tabs">
-        <button id="problems-tab">Problems</button>
-        <button id="output-tab">Output</button>
+        <button id="problems-tab">
+          Problems
+        </button>
+
+        <button id="output-tab">
+          Output
+        </button>
       </div>
 
       <div id="problems-panel">
         <table>
+
           <thead>
             <tr>
               <th>Severity</th>
@@ -96,10 +155,14 @@ td {
           </thead>
 
           <tbody id="problems-list"></tbody>
+
         </table>
       </div>
 
-      <div id="output-panel" style="display:none;">
+      <div
+        id="output-panel"
+        style="display:none;"
+      >
         <pre id="output-text"></pre>
       </div>
 
@@ -108,6 +171,6 @@ td {
   </div>
 
   <script type="module" src="/app.js"></script>
-</body>
 
+</body>
 </html>
